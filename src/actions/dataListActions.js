@@ -29,3 +29,23 @@ export const fetchDataList = () => {
         }
     }
 };
+
+export const postDataList = (body) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post(process.env.REACT_APP_FIREBASE_API + `md/${body.id}.json`, {
+                title: 'Untitled',
+                text: ''
+            });
+
+            console.log('post :', response);
+
+            dispatch(dataListAction.addData({
+                id: body.id
+            }));
+
+        }catch(err) {
+            console.log(err);
+        }
+    }
+}

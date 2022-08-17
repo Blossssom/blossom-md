@@ -5,27 +5,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAxios from '../hooks/useAxios';
 import axios from 'axios';
 import TextCard from '../components/TextCard';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { postDataList } from '../actions/dataListActions';
 
 export default function NavBar() {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const dataListState = useSelector(state => state.dataList);
     console.log(dataListState.data);
-    // const createBtnHandler = async () => {
-    //     const id = uuidv4();
-    //     await axios.put(process.env.REACT_APP_FIREBASE_API + `md/${id}.json`, {
-    //         title: 'Untitled',
-    //         text: ''
-    //     }).then(data => props.setData(prev => [...prev, [id, data.data]]));
-    //     console.log(process.env.REACT_APP_FIREBASE_API + `md/${id}.json`)
-        
-    //     navigate(`/${id}`);
-    // };
+
+    const createBtnHandler = () => {
+        const id = uuidv4();
+        dispatch(postDataList({id}));
+        navigate(`/${id}`);
+    };
 
     return (
         <Container>
-            <button>Create</button>
+            <button onClick={createBtnHandler}>Create</button>
             <div>
                 {
                     dataListState.data 

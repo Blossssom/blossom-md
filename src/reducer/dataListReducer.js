@@ -8,6 +8,12 @@ const dataReducer = createSlice({
     reducers: {
         replaceData(state, action) {
             state.data = action.payload.data;
+        },
+
+        addData(state, action) {
+            const item = action.payload;
+            state.data.push({id: item.id, title: 'Untitled', text: ''});
+            state.change = true;
         }
     }
 });

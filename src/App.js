@@ -10,9 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDataList } from "./actions/dataListActions";
 
 function App() {
-  // const [dataList, setDataList] = useState('');
-  // const [isUpdate, setIsUpdate] = useState(false);
-  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,10 +20,10 @@ function App() {
       <BrowserRouter>
         <AppContainer className="App">
           <NavBar />
-          {/* <Routes>
+          <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/:id" element={<TextArea setData={setDataList} />} />
-          </Routes> */}
+            <Route path="/:id" element={<TextArea />} />
+          </Routes>
         </AppContainer>
       </BrowserRouter>
   );
