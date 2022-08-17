@@ -12,11 +12,11 @@ export default function NavBar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const dataListState = useSelector(state => state.dataList);
-    console.log(dataListState.data);
+    console.log('nav render');
 
-    const createBtnHandler = () => {
+    const createBtnHandler = async () => {
         const id = uuidv4();
-        dispatch(postDataList({id}));
+        await dispatch(postDataList({id}));
         navigate(`/${id}`);
     };
 

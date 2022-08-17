@@ -9,7 +9,7 @@ import remarkMath from 'remark-math';
 import {solarizedlight} from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 export default function MdField(props) {
-  // tomorrow synthwave84 solarizedlight
+  
   return (
     <Container>
       <div>

@@ -11,7 +11,7 @@ import { fetchDataList } from "./actions/dataListActions";
 
 function App() {
   const dispatch = useDispatch();
-
+  console.log('app render');
   useEffect(() => {
     dispatch(fetchDataList());
   }, [dispatch]);

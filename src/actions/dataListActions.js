@@ -32,20 +32,48 @@ export const fetchDataList = () => {
 
 export const postDataList = (body) => {
     return async (dispatch) => {
-        try {
+        const updateData = async () => {
             const response = await axios.post(process.env.REACT_APP_FIREBASE_API + `md/${body.id}.json`, {
                 title: 'Untitled',
                 text: ''
             });
 
             console.log('post :', response);
+            return response;
+        };
 
+        try {
+            const postList = await updateData();
+            console.log('post list :', postList.data.name);
             dispatch(dataListAction.addData({
-                id: body.id
+                id: body.id,
+                title: 'Untitled',
+                text: ''
             }));
 
         }catch(err) {
             console.log(err);
         }
     }
-}
+};
+
+export const updateDataList = (body) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.put(process.env.REACT_APP_FIREBASE_API + `md/${body.id}.json`, {
+                id: body.id,
+                title: body.title,
+                text: body.text
+            });
+            console.log('update :', response);
+
+            dispatch(dataListAction.updateData({
+                id: body.id,
+                title: body.title,
+                text: body.text
+            }))
+        }catch(err) {
+            console.log(err);
+        }
+    };
+};

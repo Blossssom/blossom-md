@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MdField from '../components/MdField';
 import TextField from '../components/TextField';
@@ -7,17 +7,31 @@ import { useParams } from 'react-router-dom';
 
 export default function TextArea() {
     const [text, setText] = useState(``);
-    const dataList = useSelector(state => state.dataList.data);
     const params = useParams();
+    const dataList = useSelector(state => state.dataList.data);
+
     useEffect(() => {
-      const data = dataList.find(v => v.id === params.id)
+      console.log('inner effect');
+      let data;
+      let timeout;
+      if(dataList) {
+        data = dataList.find(v => v.id === params.id);
+      }else {
+        timeout = setTimeout(() => {data = dataList.find(v => v.id === params.id);}, 1000);
+      }
       setText(data.text);
-    }, [params.id]);
+
+      return () => {
+        clearTimeout(timeout);
+      }
+    }, []);
 
   return (
     <Container>
+      <Suspense fallback={<div>loading...</div>}>
         <TextField text={text} setText={setText} />
-        <MdField text={text} />
+      </Suspense>
+        {/* <MdField text={text} /> */}
     </Container>
   )
 };

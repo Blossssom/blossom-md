@@ -12,8 +12,15 @@ const dataReducer = createSlice({
 
         addData(state, action) {
             const item = action.payload;
-            state.data.push({id: item.id, title: 'Untitled', text: ''});
+            console.log('item :', state);
+            state.data.push({id: item.id, title: item.title, text: item.text});
             state.change = true;
+        },
+
+        updateData(state, action) {
+            const bodyData = action.payload;
+            console.log(bodyData);
+            state.data = state.data.map(v => v.id === bodyData.id ? bodyData : v);
         }
     }
 });

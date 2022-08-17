@@ -2,21 +2,22 @@ import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateDataList } from '../actions/dataListActions';
 
 export default function TextField(props) {
+  
   const params = useParams();
+  const dispatch = useDispatch();
   console.log('Text Field render');
 
-  const setTextHandler = useCallback((e) => {
+  const setTextHandler = (e) => {
     props.setText(e.target.value);
-  }, []);
+  };
 
   const saveBtnHandler = async () => {
-    axios.put(process.env.REACT_APP_FIREBASE_API + `md/${params.id}.json`, {
-      title: props.text.split('\n')[0] || 'Untitled',
-      text: props.text
-    });
-    // props.setUpdate(true);
+    const title = props.text.split('\n')[0] || '';
+    await dispatch(updateDataList({id: params.id, title: title, text: props.text}));
   };
 
   return (
