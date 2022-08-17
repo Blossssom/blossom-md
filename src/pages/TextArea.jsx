@@ -8,7 +8,7 @@ export default function TextArea(props) {
 
   return (
     <Container>
-        <TextField setText={setText} text={text} />
+        <TextField setText={setText} text={text} setDate={props.setData} />
         <MdField text={text} />
     </Container>
   )

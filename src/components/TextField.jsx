@@ -5,10 +5,10 @@ import axios from 'axios';
 
 export default function TextField(props) {
   const params = useParams();
-  
+  console.log('Text Field render');
   useEffect(() => {
-    axios.get(process.env.REACT_APP_FIREBASE_API + `md/${params.id}.json`).then(data => props.setText(data.data.text));
-  }, [params]);
+    axios.get(process.env.REACT_APP_FIREBASE_API + `md/${params.id}.json`).then(data => props.setData(prev => [...prev]));
+  }, [params.id, props]);
 
   const setTextHandler = useCallback((e) => {
     props.setText(e.target.value);

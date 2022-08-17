@@ -5,32 +5,35 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAxios from '../hooks/useAxios';
 import axios from 'axios';
 import TextCard from '../components/TextCard';
+import { useSelector } from 'react-redux';
 
-export default function NavBar(props) {
+export default function NavBar() {
     const navigate = useNavigate();
-    
-    const createBtnHandler = async () => {
-        const id = uuidv4();
-        await axios.put(process.env.REACT_APP_FIREBASE_API + `md/${id}.json`, {
-            title: 'Untitled',
-            text: ''
-        }).then(data => props.setData(prev => [...prev, [id, data.data]]));
-        console.log(process.env.REACT_APP_FIREBASE_API + `md/${id}.json`)
+
+    const dataListState = useSelector(state => state.dataList);
+    console.log(dataListState.data);
+    // const createBtnHandler = async () => {
+    //     const id = uuidv4();
+    //     await axios.put(process.env.REACT_APP_FIREBASE_API + `md/${id}.json`, {
+    //         title: 'Untitled',
+    //         text: ''
+    //     }).then(data => props.setData(prev => [...prev, [id, data.data]]));
+    //     console.log(process.env.REACT_APP_FIREBASE_API + `md/${id}.json`)
         
-        navigate(`/${id}`);
-    };
+    //     navigate(`/${id}`);
+    // };
 
     return (
         <Container>
-            <button onClick={createBtnHandler}>Create</button>
+            <button>Create</button>
             <div>
                 {
-                    props.datalist 
+                    dataListState.data 
                     &&
-                    props.datalist.map(v => {
+                    dataListState.data.map(v => {
                         return(
-                            <Link key={v[0]} to={`/${v[0]}`}>
-                                {v[1].title}
+                            <Link key={v.id} to={`/${v.id}`}>
+                                {v.title}
                             </Link>
                         )
                     })
