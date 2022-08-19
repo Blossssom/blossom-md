@@ -31,7 +31,7 @@ export default function TextArea() {
       <Suspense fallback={<div>loading...</div>}>
         <TextField text={text} setText={setText} />
       </Suspense>
-        {/* <MdField text={text} /> */}
+        <MdField text={text} />
     </Container>
   )
 };
