@@ -11,6 +11,7 @@ export default function TextArea() {
     const dataList = useSelector(state => state.dataList.data);
 
     useEffect(() => {
+      // data 호출이 오래걸려 dataList 정제 오류
       console.log('inner effect');
       let data;
       let timeout;
